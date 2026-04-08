@@ -1,0 +1,1080 @@
+/* ==========================================================================
+   CMMexico — Corporate Hub
+   Stylesheet principal
+   --------------------------------------------------------------------------
+   Paleta institucional:
+     --ink          : texto principal (negro profundo)
+     --ink-soft     : texto secundario
+     --surface      : fondo general (blanco roto)
+     --surface-alt  : fondo alterno (gris muy claro)
+     --accent       : acento institucional (azul profundo)
+     --accent-hover : acento al hacer hover
+     --divider      : lineas y bordes sutiles
+   ========================================================================== */
+
+/* ---------- Custom Properties (Design Tokens) ---------- */
+:root {
+  /* Colores */
+  --ink:            #1a1a1a;
+  --ink-soft:       #555555;
+  --ink-muted:      #888888;
+  --surface:        #fafafa;
+  --surface-alt:    #f0f0f0;
+  --surface-card:   #ffffff;
+  --accent:         #0b2545;
+  --accent-hover:   #13315c;
+  --accent-light:   #8da9c4;
+  --divider:        #d4d4d4;
+  --white:          #ffffff;
+
+  /* Tipografia boutique y corporativa */
+  --font-serif:     'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans:      'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+  /* Espaciado */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2.5rem;
+  --space-xl:  4rem;
+  --space-2xl: 6rem;
+
+  /* Radios */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Transiciones */
+  --transition-fast:   200ms ease;
+  --transition-base:   350ms ease;
+  --transition-smooth: 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Sombras Teñidas (Tinted Shadows) */
+  --shadow-sm:   0 1px 3px rgba(11, 37, 69, 0.06);
+  --shadow-md:   0 4px 12px rgba(11, 37, 69, 0.08);
+  --shadow-lg:   0 10px 30px rgba(11, 37, 69, 0.15);
+  --shadow-card: 0 2px 8px rgba(11, 37, 69, 0.06);
+
+  /* Layout */
+  --max-width: 1200px;
+  --header-height: 72px;
+}
+
+
+/* ==========================================================================
+   1. RESET Y BASE
+   ========================================================================== */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background-color: var(--surface);
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+}
+
+ul {
+  list-style: none;
+}
+
+
+/* ==========================================================================
+   2. UTILIDADES DE LAYOUT
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+
+/* ==========================================================================
+   3. HEADER
+   --------------------------------------------------------------------------
+   Barra superior fija con logo a la izquierda y navegacion a la derecha.
+   ========================================================================== */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--divider);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  transition: transform var(--transition-base);
+}
+
+.site-header--hidden {
+  transform: translateY(-100%);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* ---- Logo institucional ---- */
+.site-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+  padding: 12px 0; /* Padding elegante para que respire */
+}
+
+.site-header__brand:hover {
+  opacity: 0.85;
+}
+
+.site-header__logo {
+  max-height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
+.site-header__wordmark {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+/* ---- Navegacion de escritorio ---- */
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.site-nav__link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  position: relative;
+  padding-block: var(--space-xs);
+  transition: color var(--transition-fast);
+}
+
+.site-nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent);
+  transition: width var(--transition-base);
+}
+
+.site-nav__link:hover,
+.site-nav__link--active {
+  color: var(--accent);
+}
+
+.site-nav__link:hover::after,
+.site-nav__link--active::after {
+  width: 100%;
+}
+
+/* ---- Boton hamburguesa (movil) ---- */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.nav-toggle__bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--ink);
+  border-radius: 2px;
+  transition: transform var(--transition-base), opacity var(--transition-fast);
+}
+
+/* Transformacion al estado abierto */
+.nav-toggle.is-active .nav-toggle__bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.is-active .nav-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.is-active .nav-toggle__bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* ==========================================================================
+   4. HERO SECTION
+   --------------------------------------------------------------------------
+   Imagen de fondo con overlay oscuro para legibilidad del texto.
+   ========================================================================== */
+
+.hero {
+  margin-top: var(--header-height);
+  position: relative;
+  overflow: hidden;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Imagen de fondo del hero */
+.hero__background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+/* Overlay oscuro para legibilidad del texto */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(11, 37, 69, 0.88) 0%,
+    rgba(11, 37, 69, 0.72) 50%,
+    rgba(19, 49, 92, 0.65) 100%
+  );
+  z-index: 1;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+  margin-inline: auto;
+  padding: var(--space-2xl) var(--space-md);
+  text-align: center;
+  color: var(--white);
+}
+
+.hero__overline {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: var(--space-sm);
+}
+
+.hero__title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.01em;
+}
+
+.hero__subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+/* Linea decorativa inferior */
+.hero__divider {
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: var(--accent-light);
+  margin: var(--space-lg) auto 0;
+  border-radius: 2px;
+}
+
+
+/* ==========================================================================
+   5. GRID DE SERVICIOS (EL HUB)
+   ========================================================================== */
+
+.services-hub {
+  padding: var(--space-xl) 0 var(--space-2xl);
+}
+
+.services-hub__header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.services-hub__label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-xs);
+}
+
+.services-hub__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ---- Grid ---- */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+/* ---- Tarjeta de servicio ---- */
+.service-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  overflow: hidden;
+  color: var(--white);
+  border: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.service-card__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover .service-card__bg {
+  transform: scale(1.05);
+}
+
+.service-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.9));
+  z-index: 1;
+  transition: background 0.3s ease;
+}
+
+.service-card:hover .service-card__overlay {
+  background: linear-gradient(rgba(10, 25, 47, 0.6), rgba(10, 25, 47, 0.7));
+}
+
+.service-card > *:not(.service-card__bg):not(.service-card__overlay) {
+  position: relative;
+  z-index: 2;
+}
+
+/* Icono de la tarjeta */
+.service-card__icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast);
+  backdrop-filter: blur(4px);
+}
+
+.service-card:hover .service-card__icon {
+  background-color: var(--accent);
+}
+
+.service-card__icon svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--white);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke var(--transition-fast);
+}
+
+.service-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.35;
+}
+
+.service-card__excerpt {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
+
+.service-card__cta {
+  margin-top: auto;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap var(--transition-fast), color var(--transition-fast);
+}
+
+.service-card:hover .service-card__cta {
+  gap: 10px;
+  color: var(--white);
+}
+
+.service-card__cta-arrow {
+  transition: transform var(--transition-fast);
+}
+
+.service-card:hover .service-card__cta-arrow {
+  transform: translateX(3px);
+}
+
+/* Variante enlace externo (Liberabach) */
+.service-card--external {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Fondos Fotográficos */
+/* Tarjeta Marketing: Prompt IA: "Fotografía macro ultra-realista de un teclado de laptop moderno iluminado sutilmente, junto a unos lentes de armazón negro sobre un escritorio de cristal oscuro. Iluminación cinematográfica, tonos fríos. Sin personas. Aspecto corporativo premium." */
+#card-marketing .service-card__bg {
+  background-image: url('img/marketing-bg.png');
+}
+
+/* Tarjeta Certificaciones: Prompt IA: "Fotografía macro hiper-realista de un sello en relieve dorado sobre un papel de algodón grueso y texturizado. Al lado, la punta de una pluma fuente de lujo. Luz suave de estudio, colores sepia y dorado sutil. Elegancia académica." */
+#card-certificaciones .service-card__bg {
+  background-image: url('img/certificaciones-bg.png');
+}
+
+/* Tarjeta Gestoría (Pasaportes): Prompt IA: "Primer plano fotorealista de la esquina de un pasaporte con detalles dorados, descansando sobre un portafolios de cuero negro de alta calidad. Profundidad de campo muy baja (fondo desenfocado). Tonos oscuros, seriedad legal." */
+#card-gestoria .service-card__bg {
+  background-image: url('img/gestoria-bg.png');
+}
+
+/* Tarjeta Liberabach (Prepa): Prompt IA: "Fotografía arquitectónica de un pilar de piedra clásico combinado con cristal moderno. Luz de amanecer suave. Desenfoque artístico para que sirva como textura de fondo. Minimalista y solemne." */
+#card-liberabach .service-card__bg {
+  background-image: url('img/liberabach-bg.png');
+}
+
+
+/* ==========================================================================
+   6. SECCIONES DE DETALLE
+   --------------------------------------------------------------------------
+   Cada seccion de detalle es un panel independiente. Se oculta por defecto
+   y se revela cuando el usuario hace clic en la tarjeta correspondiente.
+   ========================================================================== */
+
+.detail-section {
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  padding: var(--space-xl) 0 var(--space-2xl);
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* Estado visible */
+.detail-section.is-visible {
+  display: block;
+  animation: fadeSlideIn var(--transition-smooth) forwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estado de salida */
+.detail-section.is-leaving {
+  animation: fadeSlideOut 300ms ease forwards;
+}
+
+@keyframes fadeSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+
+/* ---- Cabecera de detalle ---- */
+.detail-header {
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--divider);
+}
+
+.detail-header__overline {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-xs);
+}
+
+.detail-header__title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.15;
+  margin-bottom: var(--space-sm);
+}
+
+.detail-header__lead {
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  max-width: 680px;
+  line-height: 1.7;
+}
+
+/* ---- Cuerpo del detalle — layout de dos columnas ---- */
+.detail-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  align-items: start;
+}
+
+/* Variante invertida: imagen a la izquierda, texto a la derecha */
+.detail-body--reversed {
+  direction: rtl;
+}
+
+.detail-body--reversed > * {
+  direction: ltr;
+}
+
+.detail-body__text {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  line-height: 1.8;
+}
+
+.detail-body__text p + p {
+  margin-top: var(--space-sm);
+}
+
+.detail-body__highlights {
+  background-color: var(--surface-alt);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+.detail-body__highlights h3 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  color: var(--ink);
+}
+
+.highlight-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.highlight-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+.highlight-list__icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  stroke: var(--accent);
+}
+
+/* ---- Contenedor de imagen en paneles de detalle ---- */
+.detail-image {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Variante: imagen con aspecto fijo para consistencia visual */
+.detail-image--fixed {
+  aspect-ratio: 4 / 3;
+}
+
+/* ---- Imagen integrada de forma moderna (Marketing) ---- */
+.detail-image--hero {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: var(--space-xl);
+  max-height: 400px;
+}
+
+.detail-image--hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* ==========================================================================
+   7. BOTON "REGRESAR AL INICIO"
+   ========================================================================== */
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--white);
+  background-color: var(--accent);
+  padding: 14px 32px;
+  border-radius: var(--radius-md);
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.btn-back:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-back:active {
+  transform: translateY(0);
+}
+
+.btn-back__arrow {
+  transition: transform var(--transition-fast);
+}
+
+.btn-back:hover .btn-back__arrow {
+  transform: translateX(-3px);
+}
+
+
+/* ==========================================================================
+   8. FOOTER
+   ========================================================================== */
+
+.site-footer {
+  background-color: var(--accent);
+  color: rgba(255, 255, 255, 0.6);
+  padding: var(--space-lg) 0;
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+}
+
+.site-footer .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.site-footer__brand {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--white);
+  font-size: 1.1rem;
+  margin-bottom: var(--space-xs);
+}
+
+.site-footer__links {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xs);
+}
+
+.site-footer__link {
+  color: rgba(255, 255, 255, 0.6);
+  transition: color var(--transition-fast);
+}
+
+.site-footer__link:hover {
+  color: var(--white);
+}
+
+
+/* ==========================================================================
+   WIDGET FLOTANTE SOCIAL (CONTACT DOCK)
+   ========================================================================== */
+
+.contact-dock {
+  position: fixed;
+  bottom: var(--space-lg);
+  right: var(--space-lg);
+  z-index: 990;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 8px;
+  border-radius: 40px;
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.contact-dock:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(11, 37, 69, 0.25);
+}
+
+.contact-dock__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--ink-soft);
+  transition: color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.contact-dock__btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.contact-dock__btn:hover {
+  transform: scale(1.1);
+}
+
+.contact-dock__btn--wa:hover {
+  color: #fff;
+  background-color: #25d366;
+}
+
+.contact-dock__btn--fb:hover {
+  color: #fff;
+  background-color: #1877f2;
+}
+
+.contact-dock__divider {
+  width: 24px;
+  height: 1px;
+  background-color: var(--divider);
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   9. ANIMACIONES DE TRANSICION PARA EL SPA Y SCROLL REVEAL
+   ========================================================================== */
+
+/* Scroll Reveal generico */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade-out generico */
+.fade-out {
+  animation: fadeOut 350ms ease forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+/* Fade-in generico */
+.fade-in {
+  animation: fadeIn 400ms ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utilidad para ocultar elementos tras la animacion */
+.is-hidden {
+  display: none !important;
+}
+
+
+/* ==========================================================================
+   10. RESPONSIVE
+   ========================================================================== */
+
+/* ---------- Tablet & Móvil (<=768px) ---------- */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 60px;
+    --space-xl: 2.5rem;
+    --space-2xl: 3.5rem;
+  }
+
+  /* Ajuste de contenedores principales a 100% */
+  .container {
+    width: 100%;
+    padding-inline: var(--space-sm);
+  }
+
+  /* Header y Navegación Móvil apilado */
+  .nav-toggle {
+    display: flex;
+  }
+
+  .site-nav {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: var(--white);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--divider);
+    box-shadow: var(--shadow-lg);
+    transform: translateX(100%);
+    transition: transform var(--transition-smooth);
+    gap: var(--space-md);
+    z-index: 1050;
+  }
+
+  .site-nav.is-open {
+    transform: translateX(0);
+  }
+
+  .site-nav__link {
+    font-size: 1.1rem;
+    width: 100%;
+    text-align: center;
+    padding: var(--space-sm) 0;
+  }
+
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.35);
+    z-index: 1040;
+  }
+
+  .nav-overlay.is-visible {
+    display: block;
+  }
+
+  /* Logo */
+  .site-header__logo {
+    max-height: 36px;
+  }
+
+  .site-header__wordmark {
+    font-size: 1.25rem;
+  }
+
+  /* Ajustes Hero */
+  .hero {
+    min-height: auto;
+    padding: var(--space-2xl) 0;
+  }
+
+  .hero__content {
+    width: 100%;
+    padding: var(--space-md);
+  }
+
+  .hero__title {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero__subtitle {
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  /* Tarjetas de Áreas de Especialización - Diseño apilado horizontal -> vertical */
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .service-card {
+    width: 100%;
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .services-hub__title {
+    font-size: 1.75rem;
+    margin-bottom: var(--space-md);
+  }
+
+  /* Paneles de Detalle - Apilado vertical */
+  .detail-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--space-md);
+  }
+
+  .detail-body--reversed {
+    flex-direction: column;
+  }
+
+  .detail-header__title {
+    font-size: 1.75rem;
+  }
+
+  .detail-header__lead {
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .detail-body__text {
+    width: 100%;
+  }
+
+  .detail-body__highlights {
+    width: 100%;
+    padding: var(--space-md);
+  }
+
+  /* Botón Regresar */
+  .btn-back {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Ajustes Dock Social */
+  .contact-dock {
+    bottom: var(--space-md);
+    right: var(--space-md);
+  }
+}
